@@ -1,0 +1,32 @@
+<h1 class="text-center mb-4">SIGN IN</h1>
+<div class="col-md-8 offset-md-2">
+    <form [formGroup]="myFormIn" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow-sm bg-light">
+        
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" id="email" class="form-control" formControlName="emailTS">
+            <div *ngIf="myFormIn.get('emailTS')?.errors?.['required'] && myFormIn.get('emailTS')?.touched">
+                <div class="text-danger">Email obrigatório</div>
+            </div>
+            <div *ngIf="myFormIn.get('emailTS')?.errors?.['pattern'] && myFormIn.get('emailTS')?.touched">
+                <div class="text-danger">Email inválido</div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="pass" class="form-label">Senha:</label>
+            <input type="password" id="pass" class="form-control" formControlName="passwordTS">
+            <div *ngIf="myFormIn.get('passwordTS')?.errors?.['required'] && myFormIn.get('passwordTS')?.touched">
+                <div class="text-danger">Senha obrigatória</div>
+            </div>
+            <div *ngIf="myFormIn.get('passwordTS')?.errors?.['minusculoF'] && myFormIn.get('passwordTS')?.touched">
+                <div class="text-danger">Senha deve conter letras minúsculas</div>
+            </div>
+            <div *ngIf="myFormIn.get('passwordTS')?.errors?.['minlength'] && myFormIn.get('passwordTS')?.touched">
+                <div class="text-danger">Senha deve ter no mínimo 4 caracteres</div>
+            </div>
+        </div>
+        
+        <button class="btn btn-primary w-100" type="submit" [disabled]="!myFormIn.valid">Logar</button>
+    </form>
+</div>

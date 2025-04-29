@@ -1,0 +1,98 @@
+<h1 class="text-center mb-4">SIGN UP</h1>
+<div class="col-md-8 offset-md-2">
+    <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow-sm bg-light">
+        <div class="mb-3">
+            <label for="firstName" class="form-label">Nome:</label>
+            <input type="text" id="firstName" class="form-control" formControlName="firstNameTS">
+            <div *ngIf="myForm.get('firstNameTS')?.errors?.['required'] && myForm.get('firstNameTS')?.touched">
+                <div class="text-danger">Nome obrigatório</div>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Sobrenome:</label>
+            <input type="text" id="lastName" class="form-control" formControlName="lastNameTS">
+            <div *ngIf="myForm.get('lastNameTS')?.errors?.['required'] && myForm.get('lastNameTS')?.touched">
+                <div class="text-danger">Sobrenome obrigatório</div>
+            </div>
+            <div *ngIf="myForm.get('lastNameTS')?.errors?.['minlength'] && myForm.get('lastNameTS')?.touched">
+                <div class="text-danger">Sobrenome deve ter no mínimo 4 caracteres</div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" id="email" class="form-control" formControlName="emailTS">
+            <div *ngIf="myForm.get('emailTS')?.errors?.['required'] && myForm.get('emailTS')?.touched">
+                <div class="text-danger">Email obrigatório</div>
+            </div>
+            <div *ngIf="myForm.get('emailTS')?.errors?.['pattern'] && myForm.get('emailTS')?.touched">
+                <div class="text-danger">Email inválido</div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="pass" class="form-label">Senha:</label>
+            <input type="password" id="pass" class="form-control" formControlName="passwordTS">
+            <div *ngIf="myForm.get('passwordTS')?.errors?.['required'] && myForm.get('passwordTS')?.touched">
+                <div class="text-danger">Senha obrigatória</div>
+            </div>
+            <div *ngIf="myForm.get('passwordTS')?.errors?.['minlength'] && myForm.get('passwordTS')?.touched">
+                <div class="text-danger">Senha deve ter no mínimo 4 caracteres</div>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Escolha um Avatar:</label>
+            <div class="d-flex justify-content-between">
+              <label *ngFor="let avatar of avatarList" class="avatar-label">
+                <input 
+                  type="radio" 
+                  formControlName="avatarTS" 
+                  [value]="avatar"
+                  class="form-check-input"
+                >
+                <img [src]="avatar" width="50" height="50" alt="Avatar" class="rounded-circle">
+              </label>
+            </div>
+            <div *ngIf="myForm.get('avatarTS')?.errors?.['required'] && myForm.get('avatarTS')?.touched">
+                <div class="text-danger">Escolha um avatar!</div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="country" class="form-label">País:</label>
+            <select id="country" class="form-select" formControlName="countryTS">
+              <option value="" disabled selected>Escolha um país</option>
+              <option value="br">Brasil</option>
+              <option value="us">Estados Unidos</option>
+              <option value="ca">Canadá</option>
+              <option value="fr">França</option>
+            </select>
+            <div *ngIf="myForm.get('countryTS')?.errors?.['required'] && myForm.get('countryTS')?.touched">
+              <div class="text-danger">País obrigatório</div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-check-label" for="terms">
+                <input 
+                  type="checkbox" 
+                  id="terms" 
+                  class="form-check-input" 
+                  formControlName="termsTS">
+                Aceito os Termos de Serviço
+            </label>
+            <div *ngIf="myForm.get('termsTS')?.errors?.['required'] && myForm.get('termsTS')?.touched">
+                <div class="text-danger">Você precisa aceitar os termos!</div>
+            </div>
+        </div>
+        
+          
+
+        
+
+        <button class="btn btn-primary w-100" type="submit" [disabled]="!myForm.valid">Cadastrar</button>
+    </form>
+</div>

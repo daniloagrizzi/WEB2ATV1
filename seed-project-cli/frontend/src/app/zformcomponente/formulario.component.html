@@ -1,0 +1,25 @@
+<input type="text" [(ngModel)]="user.firstname"> <br><br>
+<input type="text" [(ngModel)]="user.email"><br><br>
+<input type="text" [(ngModel)]="user.lastname"><br><br>
+<input type="password"[(ngModel)]= "user.password"><br><br>
+<input type="password"[(ngModel)]="user.password2"><br><br>
+<button onclick="mostrar"> aperta ai</button>
+
+
+<script>
+    function mostrar(){
+        document.getElementById('teste1').style.display = 'block';
+    }
+</script>
+
+<div id ="teste1">
+    teste1
+    {{user.firstname}}
+    {{user.email}}
+    {{user.lastname}}
+    {{user.password}}
+    {{user.password2}}
+
+</div>
+
+
