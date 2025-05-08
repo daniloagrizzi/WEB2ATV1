@@ -1,66 +1,59 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 var path = require('path');
+const session = require('express-session'); 
 
+const userRoutes = require('./routes/user'); 
+const appRoutes = require('./routes/app');
 const messageRoutes = require('./routes/messages');
-const userRoutes = require('./routes/user');
-
-
-var appRoutes = require('./routes/app');
 
 const app = express();
-
-
-// NOVO
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/MyMongoDB')
-  .then(() => {
-    console.log('Conexão com o MongoDB estabelecida com sucesso.');
-  })
-  .catch((error) => {
-    console.error('Erro na conexão com o MongoDB:', error);
-  });
-// NOVO
+// Configuração de sessão
+app.use(session({
+  secret: 'your_secret_key', 
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } 
+}));
 
-// view engine setup
+// Configuração do motor de visualização
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+// Middleware para bodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Cors configuration
+const cors = require('cors');
+app.use(cors({
+  // Allow Angular app running on localhost:4200 as well as the firebase-hosted URL
+  origin: [
+    'http://localhost:4200',
+    'https://firebase-approsalengit-1746666134793.cluster-m7tpz3bmgjgoqrktlvd4ykrc2m.cloudworkstations.dev'
+  ],
+  credentials: true
+}));
+
+// Configuração de arquivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Configuração do CORS
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
-  next();
-});
-
-/*const cors = require('cors');
-
-app.use(cors({
-  origin: 'https://4200-idx-trabalho-mensagens-1744654541230.cluster-4xpux6pqdzhrktbhjf2cumyqtg.cloudworkstations.dev',
-  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
-  credentials: true 
-}));*/
-
-
-
-app.use('/api/message', messageRoutes);
-app.use('/api/autenticacao',userRoutes);
+// API Routes - Ensure all API routes are prefixed with /api
+app.use('/api/auth', userRoutes);
+app.use('/api/messages', messageRoutes);  // IMPORTANT: Use /api/messages prefix
 app.use('/', appRoutes);
 
-
-// catch 404 and forward to error handler')
-
-// catch 404 and forward to error handler 
+// Catch-all route for Angular app routing
 app.use(function (req, res, next) {
+  // Check if this is an API request
+  if (req.url.startsWith('/api/')) {
+    return res.status(404).json({ message: 'API endpoint not found' });
+  }
+  
+  // For non-API requests, render the index view (for Angular SPA)
   return res.render('index');
 });
 
 module.exports = app;
- 

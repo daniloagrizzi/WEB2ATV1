@@ -1,13 +1,20 @@
 import { Routes } from '@angular/router';
+import { LoginComponent } from './Components/auth/login.component';
+import { RegisterComponent } from './Components/auth/register.component';
+import { HomeComponent } from './Components/auth/home.component';
+import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
+import { AuthGuard } from './Components/auth/auth.guard';
 
-import { MessagesComponent } from './messages/messages.component';
-import { AuthenticationComponent } from './auth/authentication.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { AUTH_ROUTES } from './auth/auth.router';
 export const routes: Routes = [
-    {path: '', redirectTo: '/autenticacao', pathMatch: 'full'},
-    {path: 'mensagens','title': 'Mensagens', component: MessagesComponent},
-    {path: 'autenticacao', 'title': 'Autenticação',component: AuthenticationComponent, children: AUTH_ROUTES},
-    {path:'**', component: PageNotFoundComponent}
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+ { path: 'registro', component: RegisterComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];
-  

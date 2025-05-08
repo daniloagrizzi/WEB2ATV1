@@ -3,25 +3,7 @@
   <div class="row">
     
     <div class="col-md-8 col-md-offset-2">
-     <!--<app-message [messageVarClasse] ="messageBinding"
-      (outputMessage)="messageBinding.content = $event"></app-message>-->
-      
-      <app-header></app-header> 
-      <br/>
       <router-outlet></router-outlet>
-
-     <!--Signal Input-->
-    <!-- <app-message-signal [messageVarClasse]="msg"
-     (outputMessage)="msg.content= $event"  *ngFor ="let msg of messageS"></app-message-signal>  -->
-     <!--@for (msg of messageS; track $index){
-      <app-message-signal [messageVarClasse]="msg"  (outputMessage)="msg.content = $event"></app-message-signal>
-     }@empty{
-      lista vazia
-      }-->
     </div>
   </div>
-  
-
-
-
 </div>

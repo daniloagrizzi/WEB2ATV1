@@ -1,0 +1,70 @@
+<div class="register-container">
+    <div class="register-card">
+      <h2>Cadastro</h2>
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Nome</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            [(ngModel)]="name"
+            required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            [(ngModel)]="email"
+            required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+            required>
+        </div>
+        
+        <div class="form-group">
+          <label for="profileImage">Imagem de Perfil</label>
+          <select
+            class="form-control"
+            id="profileImage"
+            name="profileImage"
+            [(ngModel)]="profileImage"
+            required>
+            <option value="" disabled selected>Selecione uma imagem</option>
+            <option *ngFor="let image of profileImages" [value]="image.path">
+              {{image.name}}
+            </option>
+          </select>
+          <div class="profile-image-preview" *ngIf="profileImage">
+            <img [src]="profileImage" alt="Imagem de perfil" class="preview-image">
+          </div>
+        </div>
+        
+        <div class="alert alert-danger" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+        
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+            {{ isLoading ? 'Registrando...' : 'Registrar' }}
+          </button>
+        </div>
+        <div class="login-link">
+          <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">Login</a>
+         </div>
+      </form>
+    </div>
+  </div>

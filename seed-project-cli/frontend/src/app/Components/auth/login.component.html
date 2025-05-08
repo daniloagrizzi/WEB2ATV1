@@ -1,0 +1,42 @@
+<div class="login-container">
+    <div class="login-card">
+      <h2>Login</h2>
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            type="email" 
+            class="form-control" 
+            id="email" 
+            name="email" 
+            [(ngModel)]="loginData.email" 
+            required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input 
+            type="password" 
+            class="form-control" 
+            id="password" 
+            name="password" 
+            [(ngModel)]="loginData.password" 
+            required>
+        </div>
+        
+        <div class="alert alert-danger" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+        
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+            {{ isLoading ? 'Entrando...' : 'Entrar' }}
+          </button>
+        </div>
+        
+        <div class="register-link">
+         <a class="nav-link" [routerLink]="['/registro']" routerLinkActive="active">Registro</a>
+        </div>
+      </form>
+    </div>
+  </div>

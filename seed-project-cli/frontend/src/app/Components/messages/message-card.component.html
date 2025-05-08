@@ -1,0 +1,12 @@
+<div class="message-card">
+  <img [src]="message.user.profileImageUrl || 'default-avatar.png'" alt="Profile" class="profile-image" />
+  <div class="message-content">
+    <h4 class="user-name">{{ message.user.name }}</h4>
+    <p class="message-text">{{ message.text }}</p>
+    <small class="message-date">{{ message.createdAt }}</small>
+  </div>
+  <div class="actions" *ngIf="showActions">
+    <button (click)="onEdit()" class="edit-btn">Editar</button>
+    <button (click)="onDelete()" class="delete-btn">Excluir</button>
+  </div>
+</div>
